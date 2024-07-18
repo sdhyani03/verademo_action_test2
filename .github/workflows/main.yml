@@ -24,13 +24,13 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
     - name: Build with Maven
       run: |
-            cd app
+            cd tests
             mvn clean package
 
     - uses: actions/upload-artifact@v4
       with:
         name: verademo.war
-        path: app/target/verademo.war
+        path: tests/target/verademo.war
         
   pipeline_scan:
       needs: build
@@ -79,8 +79,8 @@ jobs:
           inputFile: results.json
           vid: ${{ secrets.VID }}
           vkey: ${{ secrets.VKEY }}
-          source_base_path_1: "com/:app/src/main/java/com/"
-          source_base_path_2: "WEB-INF:app/src/main/webapp/WEB-INF"
+          source_base_path_1: "com/:tests/src/main/java/com/"
+          source_base_path_2: "WEB-INF:tests/src/main/webapp/WEB-INF"
           language: java
           prComment: true
           cwe: '89,117'
